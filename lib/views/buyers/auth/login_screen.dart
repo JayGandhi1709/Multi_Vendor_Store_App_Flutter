@@ -2,8 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_vender_store_app/constant/global_variables.dart';
 import 'package:multi_vender_store_app/controllers/auth_controller.dart';
-import 'package:multi_vender_store_app/utils/show_snack_bar.dart';
+import 'package:multi_vender_store_app/utils/show_snackBar.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/register_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/custom_textformfield.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/loader.dart';
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       _obscureText
                           ? CupertinoIcons.eye_slash_fill
                           : CupertinoIcons.eye_fill,
-                      color: _obscureText ? null : Colors.yellow.shade900,
+                      color: _obscureText ? null : GlobalVariables.primaryColor,
                     ),
                   ),
                 ),
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: MediaQuery.of(context).size.width - 40,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.yellow.shade900,
+                      color: GlobalVariables.primaryColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -155,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'Register',
                         style: TextStyle(
-                          color: Colors.yellow.shade900,
+                          color: GlobalVariables.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

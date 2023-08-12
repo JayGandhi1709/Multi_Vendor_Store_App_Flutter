@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:multi_vender_store_app/constant/global_variables.dart';
 import 'package:multi_vender_store_app/firebase_options.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/register_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/main_screen.dart';
@@ -28,12 +29,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow.shade900),
+        colorScheme: ColorScheme.fromSeed(seedColor: GlobalVariables.primaryColor),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         fontFamily: 'Brand-Bold',
       ),
-      home: const RegisterScreen(),
+      home: const MainScreen(),
     );
   }
 }

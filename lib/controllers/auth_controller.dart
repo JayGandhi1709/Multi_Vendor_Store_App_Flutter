@@ -1,16 +1,21 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> signUpUsers({
     required String email,
     required String fullName,
     required String phoneNumber,
     required String password,
+    Uint8List? image,
   }) async {
     String res = 'Some error occured';
 
@@ -25,12 +30,15 @@ class AuthController {
           password: password,
         );
 
+        String profileImageUrl = await _uploadProfileImageToStorage(image);
+
         await _firestore.collection('buyers').doc(credential.user!.uid).set({
           'email': email,
           'fullName': fullName,
           'phoneNumber': phoneNumber,
           'buyerId': credential.user!.uid,
           'address': [],
+          'profileImage': profileImageUrl,
         });
 
         res = 'Success';
@@ -79,15 +87,26 @@ class AuthController {
     return res;
   }
 
-    pickProfileImage(ImageSource source) async {
+  pickProfileImage(ImageSource source) async {
     final ImagePicker _imagePicker = ImagePicker();
 
     XFile? _file = await _imagePicker.pickImage(source: source);
 
-    if(_file != null){
+    if (_file != null) {
       return await _file.readAsBytes();
-    }else{
+    } else {
       print("No Image Selected");
     }
+  }
+
+  _uploadProfileImageToStorage(Uint8List? image) async {
+    Reference ref =
+        _storage.ref().child('profilePics').child(_auth.currentUser!.uid);
+
+    UploadTask task = ref.putData(image!);
+    TaskSnapshot snapshot = await task;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+
+    return downloadUrl;
   }
 }

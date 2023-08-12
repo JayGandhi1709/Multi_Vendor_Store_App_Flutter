@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vender_store_app/constant/global_variables.dart';
 
 class CategoryText extends StatelessWidget {
   const CategoryText({super.key});
@@ -30,7 +31,7 @@ class CategoryText extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ActionChip(
-                          backgroundColor: Colors.yellow.shade900,
+                          backgroundColor: GlobalVariables.primaryColor,
                           onPressed: (){},
                           label: Center(
                             child: Text(

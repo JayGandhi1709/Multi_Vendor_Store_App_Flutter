@@ -5,8 +5,9 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_vender_store_app/constant/global_variables.dart';
 import 'package:multi_vender_store_app/controllers/auth_controller.dart';
-import 'package:multi_vender_store_app/utils/show_snack_bar.dart';
+import 'package:multi_vender_store_app/utils/show_snackBar.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/login_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/custom_textformfield.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/loader.dart';
@@ -52,6 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         fullName: _fullNameController.text,
         phoneNumber: _phoneNumberController.text,
         password: _passwordController.text,
+        image: _image,
       )
           .whenComplete(() {
         setState(() {
@@ -105,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _image != null
                     ? CircleAvatar(
                         radius: 64,
-                        backgroundColor: Colors.yellow.shade900,
+                        backgroundColor: GlobalVariables.primaryColor,
                         backgroundImage: MemoryImage(_image!),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(100),
@@ -114,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       )
                     : CircleAvatar(
                         radius: 64,
-                        backgroundColor: Colors.yellow.shade900,
+                        backgroundColor: GlobalVariables.primaryColor,
                         backgroundImage:
                             const AssetImage('images/profile.png'),
                         child: IconButton(
@@ -160,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _obscureText
                           ? CupertinoIcons.eye_slash_fill
                           : CupertinoIcons.eye_fill,
-                      color: _obscureText ? null : Colors.yellow.shade900,
+                      color: _obscureText ? null : GlobalVariables.primaryColor,
                     ),
                   ),
                 ),
@@ -173,7 +175,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: MediaQuery.of(context).size.width - 40,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.yellow.shade900,
+                      color: GlobalVariables.primaryColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -211,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Text(
                         'Login',
                         style: TextStyle(
-                          color: Colors.yellow.shade900,
+                          color: GlobalVariables.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

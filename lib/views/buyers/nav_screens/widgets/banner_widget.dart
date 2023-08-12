@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:multi_vender_store_app/constant/global_variables.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class BannerWidget extends StatefulWidget {
   const BannerWidget({super.key});
@@ -11,7 +13,6 @@ class BannerWidget extends StatefulWidget {
 
 class _BannerWidgetState extends State<BannerWidget> {
   final _firestore = FirebaseFirestore.instance;
-  bool isDataLoading = true;
 
   final List _bannerImage = [];
 
@@ -26,11 +27,7 @@ class _BannerWidgetState extends State<BannerWidget> {
           },
         );
       },
-    ).whenComplete(() {
-      setState(() {
-        isDataLoading = false;
-      });
-    });
+    );
   }
 
   @override
@@ -44,38 +41,39 @@ class _BannerWidgetState extends State<BannerWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: isDataLoading
-          ? Shimmer.fromColors(
-              baseColor: Colors.grey.withOpacity(0.25),
-              highlightColor: Colors.white.withOpacity(0.6),
-              child: Container(
-                height: 140,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.yellow.shade900,
-                  borderRadius: BorderRadius.circular(10),
+      child: Container(
+        height: 140,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: GlobalVariables.primaryColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: PageView.builder(
+          itemCount: _bannerImage.length,
+          itemBuilder: (context, index) {
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: _bannerImage[index],
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Shimmer(
+                  duration: const Duration(seconds: 10), //Default value
+                  interval: const Duration(
+                      seconds: 10), //Default value: Duration(seconds: 0)
+                  color: Colors.white, //Default value
+                  colorOpacity: 0, //Default value
+                  enabled: true, //Default value
+                  direction: const ShimmerDirection.fromLTRB(), //Default Value
+                  child: Container(
+                    color: Colors.white,
+                  ),
                 ),
-              ))
-          : Container(
-              height: 140,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                // color: Colors.yellow.shade900,
-                borderRadius: BorderRadius.circular(10),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              child: PageView.builder(
-                itemCount: _bannerImage.length,
-                itemBuilder: (context, index) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      _bannerImage[index],
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-              ),
-            ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
