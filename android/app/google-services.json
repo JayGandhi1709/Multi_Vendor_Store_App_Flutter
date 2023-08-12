@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086731920110",
+    "project_id": "multi-vender-store-67f8a",
+    "storage_bucket": "multi-vender-store-67f8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086731920110:android:94a959cf5db1fb283f49ff",
+        "android_client_info": {
+          "package_name": "com.example.multi_vender_store_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086731920110-mk51p34npo5fcc1itfug1auj41hhpm6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHr2m83YN-_dl8FVb7aaozlYDtcclPY9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086731920110-mk51p34npo5fcc1itfug1auj41hhpm6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
