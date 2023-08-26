@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vender_store_app/constant/global_variables.dart';
 import 'package:multi_vender_store_app/controllers/auth_controller.dart';
+import 'package:multi_vender_store_app/providers/buyer_providers.dart';
 import 'package:multi_vender_store_app/utils/show_snackBar.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/register_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/custom_textformfield.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/widgets/loader.dart';
 import 'package:multi_vender_store_app/views/buyers/main_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,8 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthController authController = AuthController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: 'gandhijay126@gmail.com');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '123456789');
+
+  
 
   bool _isLoading = false;
   bool _obscureText = true;
@@ -41,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       String res = await authController
           .signInUsers(
+        context: context,
         email: _emailController.text,
         password: _passwordController.text,
       )
@@ -72,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final buyerProvider =Provider.of<BuyerProvider>(context);
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -80,10 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
+                  // '${buyerProvider.buyer!.name}',
                   'Login Customer\'s Account',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                const SizedBox(height: 20),
                 CustomTextFormField(
                   labelText: 'Email',
                   hintText: 'Enter Email',
