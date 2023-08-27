@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_vender_store_app/utils/show_snackBar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -115,9 +117,11 @@ class AuthController {
     }
   }
 
-  _uploadProfileImageToStorage(Uint8List? image) async {
+  _uploadProfileImageToStorage(Uint8List? image,
+      {bool isOldDelete = false}) async {
     // Create the file metadata
     final metadata = SettableMetadata(contentType: "image/jpeg");
+
     Reference ref =
         _storage.ref().child('profilePics').child(_auth.currentUser!.uid);
 
@@ -168,5 +172,36 @@ class AuthController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("UID", "");
     await _auth.signOut();
+  }
+
+  editUsers({
+    required BuildContext context,
+    required Buyer buyer,
+    Uint8List? image,
+  }) async {
+    String res = 'Something went wrong!';
+    EasyLoading.show();
+    try {
+      String? profileImageUrl = buyer.profileImage;
+      if (image != null) {
+        profileImageUrl = await _uploadProfileImageToStorage(image);
+      }
+      await _firestore.collection("buyers").doc(buyer.buyerId).update({
+        "fullName": buyer.name,
+        "phoneNumber": buyer.phoneNumber,
+        "address": buyer.address,
+        "profileImage": profileImageUrl,
+      }).whenComplete(() {
+        // Provider.of<BuyerProvider>(context, listen: false).setBuyerFromModel(buyer);
+        getBuyer(context);
+        showSnackBar(context, "Profile Update Successfully");
+        Navigator.pop(context);
+      });
+      res = 'Success';
+    } catch (e) {
+      res = e.toString();
+    }
+    EasyLoading.dismiss();
+    return res;
   }
 }

@@ -12,6 +12,7 @@ import 'package:multi_vender_store_app/providers/buyer_providers.dart';
 import 'package:multi_vender_store_app/providers/cart_provider.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/login_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/auth/register_screen.dart';
+import 'package:multi_vender_store_app/views/buyers/landing_screen.dart';
 import 'package:multi_vender_store_app/views/buyers/main_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -73,11 +74,11 @@ class _MyAppState extends State<MyApp> {
           useMaterial3: true,
           fontFamily: 'Brand-Bold',
         ),
-        home: Provider.of<BuyerProvider>(context).buyer!.id.isEmpty
-            ? const LoginScreen()
-            : const MainScreen(),
+        // home: Provider.of<BuyerProvider>(context).buyer!.buyerId.isEmpty
+        //     ? const LoginScreen()
+        //     : const MainScreen(),
+        home: const MainScreen(),
         builder: EasyLoading.init(),
-        // home: const LoginScreen(),
       ),
     );
   }

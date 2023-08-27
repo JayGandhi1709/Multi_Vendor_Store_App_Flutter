@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Buyer {
-  final String id;
+  final String buyerId;
   final String name;
   final String email;
   final String address;
   final String profileImage;
   final String phoneNumber;
   Buyer({
-    required this.id,
+    required this.buyerId,
     required this.name,
     required this.email,
     required this.address,
@@ -21,7 +21,7 @@ class Buyer {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'buyerId': buyerId,
       'name': name,
       'email': email,
       'address': address,
@@ -32,7 +32,7 @@ class Buyer {
 
   factory Buyer.fromMap(Map<String, dynamic> map) {
     return Buyer(
-      id: map['buyerId'] ?? '',
+      buyerId: map['buyerId'] ?? '',
       name: map['fullName'] ?? '',
       email: map['email'] ?? '',
       address: map['address'] ?? '',
@@ -49,7 +49,7 @@ class Buyer {
       Buyer.fromMap(snapshot.data() as Map<String, dynamic>);
 
   Buyer copyWith({
-    String? id,
+    String? buyerId,
     String? name,
     String? email,
     String? address,
@@ -57,7 +57,7 @@ class Buyer {
     String? phoneNumber,
   }) {
     return Buyer(
-      id: id ?? this.id,
+      buyerId: buyerId ?? this.buyerId,
       name: name ?? this.name,
       email: email ?? this.email,
       address: address ?? this.address,

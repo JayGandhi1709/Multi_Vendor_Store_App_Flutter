@@ -3,7 +3,7 @@ import 'package:multi_vender_store_app/models/buyer_model.dart';
 
 class BuyerProvider extends ChangeNotifier {
   Buyer? _buyer = Buyer(
-    id: '',
+    buyerId: '',
     name: '',
     email: '',
     address: '',

@@ -126,7 +126,7 @@ class CheckoutScreen extends StatelessWidget {
                           final orderId = const Uuid().v4();
                           _firestore.collection("orders").doc(orderId).set({
                             'orderId': orderId,
-                            "venderId": item.vendorId,
+                            "vendorId": item.vendorId,
                             "email": data['email'],
                             "phoneNumber": data['phoneNumber'],
                             "address": data['address'],
@@ -140,6 +140,7 @@ class CheckoutScreen extends StatelessWidget {
                             "quantity": item.quantity,
                             "productSize": item.productSize,
                             "scheduleDate": item.scheduleDate,
+                            "accepted": false,
                             "orderDate": DateTime.now(),
                           }).whenComplete(() {
                             cartProvider.clearProvider();
